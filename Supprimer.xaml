@@ -1,0 +1,149 @@
+﻿<Window x:Class="ProjetBDD_WPF.Supprimer"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetBDD_WPF"
+        mc:Ignorable="d"
+        Title="Supprimer" Height="750" Width="500"     
+        MinHeight="750" MaxHeight="750"
+        MinWidth="500" MaxWidth="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <ImageBrush ImageSource="image/iphone-bg.png"/>
+    </Window.Background>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="580"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <!--Cette première grille contiendra un bouton retour, le logo de Cooking et un bouton paramètres sur fond vert-->
+            <Grid ShowGridLines="false">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Setter Property="RadiusX" Value="20"/>
+                        <Setter Property="RadiusY" Value="28"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="100"/>
+                    <!-- This column will receive all remaining width -->
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="image/toqueblanche.png" Grid.Column="2" Grid.Row="0" Margin="0,10,0,5" HorizontalAlignment="Center"/>
+
+                <Rectangle Grid.Column="0" Grid.Row="0" Fill="#FFC72828" Margin="8,9,6,9"/>
+                <TextBlock Text="←" Grid.Column="0" Grid.Row="0" Margin="12,1,4.2,-0.4" FontSize="30" Foreground="White"/>
+                <Button x:Name="Retour" Grid.Column="0" Grid.Row="0" Margin="8,8,6,8" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Retour_Click" BorderThickness="0" Opacity="0" RenderTransformOrigin="0.505,0.5">
+                    Retour
+                </Button>
+
+            </Grid>
+
+            <!--Cette seconde grille va contenir le menu déroulant des plats-->
+            <Grid ShowGridLines="false">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Setter Property="RadiusX" Value="15"/>
+                        <Setter Property="RadiusY" Value="15"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width=" 290"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="480"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="3" Fill="White"/>
+                <StackPanel Grid.Column="1" Grid.Row="0">
+                    <TextBlock Text="Suppression d'un créateur ou d'une recette" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Foreground="#FF70AD47" FontWeight="Bold" FontSize="12"/>
+                    <TextBlock x:Name="Idadmin" Text="" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Foreground="#FF70AD47" FontWeight="Bold" FontSize="12"/>
+                </StackPanel>
+                <Grid  Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        
+                        <RowDefinition Height="10"/>
+                        
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="5"/>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Entrez l'identifiant d'un" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBlock Text="créateur à supprimer" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                    <Rectangle Grid.Column="1" Grid.Row="4" Stroke="#FF70AD47" Height="30"/>
+                    <TextBox x:Name="ValueCreateur" Grid.Row="4" Grid.Column="1" BorderBrush="{x:Null}" Background="{x:Null}" Margin="10,0,10,0" VerticalAlignment="Center" FontSize="15" BorderThickness="0"/>
+                    <Rectangle Grid.Column="1" Grid.Row="5" Stroke="#FF70AD47" Height="30" Fill="#FF70AD47"/>
+                    <TextBlock Text="Supprimer un créateur" Grid.Column="1" Grid.Row="5" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Margin="0,0,0,3" />
+                    <Button Click="SuppressionCreateur_Click" Grid.Column="1" Grid.Row="5" Background="{x:Null}" BorderBrush="{x:Null}" Opacity="0" Foreground="{x:Null}" BorderThickness="0" Margin="0,5">
+                        Supprimer un créateur
+                    </Button>
+                    
+                    <TextBlock x:Name="informations1" Text="" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#FF70AD47"/>
+                    <TextBlock x:Name="informations2" Text="" Grid.Column="1" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#FF70AD47"/>
+
+                    <TextBlock Text="Entrez le nom d'une" Grid.Column="1" Grid.Row="9" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                    <TextBlock Text="recette à supprimer" Grid.Column="1" Grid.Row="10" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"/>
+                    <Rectangle Grid.Column="1" Grid.Row="12" Stroke="#FF70AD47" Height="30"/>
+                    <TextBox x:Name="ValueRecette" Grid.Row="12" Grid.Column="1" BorderBrush="{x:Null}" Background="{x:Null}" Margin="10,0,10,0" VerticalAlignment="Center" FontSize="15" BorderThickness="0"/>
+                    <Rectangle Grid.Column="1" Grid.Row="13" Stroke="#FF70AD47" Height="30" Fill="#FF70AD47"/>
+                    <TextBlock Text="Supprimer une recette" Grid.Column="1" Grid.Row="13" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" FontWeight="Bold" Margin="0,0,0,3" />
+                    <Button Click="SuppressionRecette_Click" Grid.Column="1" Grid.Row="13" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Opacity="0" BorderThickness="0" Margin="0,5">
+                        Supprimer un créateur
+                    </Button>
+                    
+                    <TextBlock x:Name="informations3" Text="" Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#FF70AD47"/>
+                    <TextBlock x:Name="informations4" Text="" Grid.Column="1" Grid.Row="15" HorizontalAlignment="Center" VerticalAlignment="Center" FontStyle="Italic" Foreground="#FF70AD47"/>
+
+                </Grid>
+
+            </Grid>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>

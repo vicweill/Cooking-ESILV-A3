@@ -1,0 +1,187 @@
+﻿<Window x:Class="ProjetBDD_WPF.MenuPrincipal"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjetBDD_WPF"
+        mc:Ignorable="d"
+        Title="Menu Principal"
+        Height="750" Width="500"     
+        MinHeight="750" MaxHeight="750"
+        MinWidth="500" MaxWidth="500"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Background>
+        <ImageBrush ImageSource="image/iphone-bg.png"/>
+    </Window.Background>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="580"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <!--Cette première grille contiendra un bouton retour, le logo de Cooking et un bouton paramètres sur fond vert-->
+            <Grid ShowGridLines="false">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Setter Property="RadiusX" Value="20"/>
+                        <Setter Property="RadiusY" Value="28"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="100"/>
+                    <!-- This column will receive all remaining width -->
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+                <Image Source="image/toqueblanche.png" Grid.Column="2" Grid.Row="0" Margin="0,10,0,5" HorizontalAlignment="Center"/>
+
+                <Rectangle Grid.Column="0" Grid.Row="0" Fill="#FFC72828" Margin="8,9,6,9"/>
+                <TextBlock Text="←" Grid.Column="0" Grid.Row="0" Margin="12,1,4.2,-0.4" FontSize="30" Foreground="White"/>
+                <Button x:Name="Retour" Grid.Column="0" Grid.Row="0" Margin="8,8,6,8" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Retour_Click" BorderThickness="0" Opacity="0">
+                    Retour
+                </Button>
+
+                <Rectangle Grid.Column="3" Grid.Row="0" Fill="White" Margin="65,10,5,10"/>
+                <TextBlock Text="+" Grid.Column="3" Grid.Row="0" FontSize="25" Margin="65,5,5,10" Foreground="#FF4E9D55" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button x:Name="Ajouter" Grid.Column="3" Grid.Row="0" Margin="65,10,5,10" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Ajouter_Click" Opacity="0" RenderTransformOrigin="0.507,0.5">
+                    Ajouter une recette au panier
+                </Button>
+
+                <Rectangle Grid.Column="3" Grid.Row="0" Fill="White" Margin="0,10,70,10"/>
+                <TextBlock Text="-" Grid.Column="3" Grid.Row="0" FontSize="25" Margin="0,5,70,10" Foreground="#FF4E9D55" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                <Button x:Name="Retirer" Grid.Column="3" Grid.Row="0" Margin="0,10,70,10" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Retirer_Click" Opacity="0">
+                    Retirer une recette du panier
+                </Button>
+
+                <TextBlock x:Name="Quantite" Text="" Grid.Column="3" Grid.Row="0" FontSize="25" Margin="0,10,5,10" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold"/>
+                
+            </Grid>
+
+            <!--Cette seconde grille va contenir le menu déroulant des plats-->
+            <Grid ShowGridLines="false">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Setter Property="RadiusX" Value="15"/>
+                        <Setter Property="RadiusY" Value="15"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="290"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="420"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Column="0" Grid.Row="0" Grid.RowSpan="1" Grid.ColumnSpan="3" Fill="White"/>
+                <TextBlock x:Name="Choix" Text="Choisissez une recette à commander" Grid.Row="0" Grid.Column="1" TextAlignment="Center" Foreground="#FF4E9D55" FontWeight="Bold" FontSize="12"/>
+                <TextBlock x:Name="Sauvegarde_Id" Text="" Grid.Row="0" Grid.Column="1" Foreground="{x:Null}" FontSize="12"/>
+                
+                <ListView x:Name="affichageRecette" ItemsSource="{Binding Recette}" Grid.Row="0" Grid.Column="1" Margin="0,20,0,5" BorderThickness="0" BorderBrush="{x:Null}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:Name="TemplateRecette">
+                            <Border Margin="0" Width="275" Height="90" HorizontalAlignment="Left">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="88"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <!--On va faire une bordure pour l'image ici-->
+                                    <Border Width="80" Height="80" Grid.Column="0" CornerRadius="15" HorizontalAlignment="Left" Margin="0,0,0,0">
+                                        <Image Source="{Binding Photo}" Stretch="UniformToFill" HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel x:Name="InfosRecette" Grid.Column="1" HorizontalAlignment="Left" Margin="5,0,0,0">
+                                        <TextBlock x:Name="NomR" Text="{Binding NomRecette, StringFormat={}{0:C}}" FontSize="15" FontWeight="Bold" Margin="0,5,0,0"/>
+                                        <TextBlock x:Name="TypeR" Text="{Binding TypeRecette}" FontStyle="Italic" FontSize="10"/>
+                                        <TextBlock x:Name="DescriptifR" Text="{Binding Descriptif}" FontStyle="Italic" FontSize="11" TextWrapping="Wrap"/>
+                                        <TextBlock x:Name="PrixR" Text="{Binding Prix}" FontStyle="Italic" FontSize="15" FontWeight="Bold"/>
+                                    </StackPanel>
+                                    <!--<Button x:Name="Panier" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Background="#7FFF0000" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Panier_Click" BorderThickness="0" Opacity="0"/>-->
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <Rectangle Grid.Column="1" Grid.Row="1" Margin="75,5,75,5" Stroke="#FF70AD47"/>
+                <TextBlock Text="Plus de détails" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="#FF70AD47"/>
+                <Button x:Name="Infos" Grid.Column="1" Grid.Row="1" Margin="75,5,75,5" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Click="Infos_Click" Opacity="0">
+                    Informations sur la recette
+                </Button>
+
+            </Grid>
+
+            <!--Cette dernière grille contiendra des boutons d'accès verts à d'autres pages et une ligne de séparation-->
+            <Grid ShowGridLines="false">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Rectangle}">
+                        <Setter Property="RadiusX" Value="20"/>
+                        <Setter Property="RadiusY" Value="28"/>
+                    </Style>
+                </Grid.Resources>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="5"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Row="0" Grid.ColumnSpan="7" Fill="Black" RadiusX="1" RadiusY="1" Height="1" Margin="20,0,20,69.4"/>
+
+                <Image Source="image/logo-perso.png" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Margin="5,10,5,10" HorizontalAlignment="Center" Height="50" VerticalAlignment="Bottom"/>
+                <StackPanel Grid.Row="0" Grid.Column="2" Margin="0,0,0.6,0.4" Grid.ColumnSpan="2">
+                    <TextBlock Text="Espace" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Margin="0,15,0,0"/>
+                    <TextBlock Text="Personnel" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="15" Margin="0,0,0,5"/>
+                </StackPanel>
+                <Button x:Name="EspacePerso"  Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="5,5,5,0" Click="Creation_Click" BorderThickness="0" Opacity="0">
+                    Accéder à l'espace personnel
+                </Button>
+                
+                <StackPanel Grid.Row="0" Grid.Column="3" Margin="0,0,0,0">
+                    <TextBlock Text="" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="0,0,0,0" />
+                    <TextBlock Text="Commander" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="15" Margin="0,5,5,0" Foreground="#FF70AD47" FontWeight="Bold" />
+                </StackPanel>
+                <Image Source="image/logo-commander.png" Grid.Column="4" Grid.Row="0" Margin="5,10,5,10" HorizontalAlignment="Center" Grid.ColumnSpan="2"/>
+                <Button x:Name="Commander"  Grid.Column="3" Grid.Row="0" Grid.ColumnSpan="3" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="{x:Null}" Margin="5,5,5,0" Click="Commande_Click" BorderThickness="0" Opacity="0">
+                    Passer la commande
+                </Button>
+
+
+            </Grid>
+            
+        </StackPanel>
+
+    </Grid>
+
+
+
+</Window>
